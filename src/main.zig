@@ -21,7 +21,7 @@ pub fn main() !void {
         null,
     );
 
-    const text_style: TextStyle = .{
+    const text_style: Text.Style = .{
         .font = &arial,
         .font_size = 24,
         .spacing = 4,
@@ -84,17 +84,17 @@ const String = struct {
     }
 };
 
-const TextStyle = struct {
-    font: *const rl.Font,
-    font_size: f32,
-    spacing: f32,
-    color: rl.Color,
-};
-
 const Text = struct {
     text: *const String,
     position: rl.Vector2,
-    style: TextStyle,
+    style: Style,
+
+    const Style = struct {
+        font: *const rl.Font,
+        font_size: f32,
+        spacing: f32,
+        color: rl.Color,
+    };
 
     fn draw(self: *const Text) void {
         rl.drawTextEx(
