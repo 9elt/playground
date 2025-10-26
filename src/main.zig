@@ -21,18 +21,20 @@ pub fn main() !void {
         null,
     );
 
+    const text_style: TextStyle = .{
+        .font = &arial,
+        .font_size = 24,
+        .spacing = 4,
+        .color = rl.Color.white,
+    };
+
     const text: Text = .{
         .text = &c,
         .position = .{
             .x = 16,
             .y = 16,
         },
-        .style = .{
-            .font = &arial,
-            .font_size = 24,
-            .spacing = 6,
-            .color = rl.Color.white,
-        },
+        .style = text_style,
     };
 
     while (!rl.windowShouldClose()) {
@@ -82,15 +84,17 @@ const String = struct {
     }
 };
 
+const TextStyle = struct {
+    font: *const rl.Font,
+    font_size: f32,
+    spacing: f32,
+    color: rl.Color,
+};
+
 const Text = struct {
     text: *const String,
     position: rl.Vector2,
-    style: struct {
-        font: *const rl.Font,
-        font_size: f32,
-        spacing: f32,
-        color: rl.Color,
-    },
+    style: TextStyle,
 
     fn draw(self: *const Text) void {
         rl.drawTextEx(
